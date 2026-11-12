@@ -50,7 +50,8 @@ const PremiumDialog = () => {
         <Button
           onClick={handleClick}
           size="sm"
-          className="gap-1.5 bg-gradient-to-r from-orange via-orange to-orange/70 text-orange-foreground hover:opacity-90 shadow-md"
+          variant="ghost"
+          className="gap-1.5 text-orange hover:bg-orange/10 hover:text-orange"
         >
           <Crown className="h-3.5 w-3.5" /> Premium
         </Button>

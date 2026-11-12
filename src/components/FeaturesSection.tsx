@@ -1,66 +1,42 @@
 import { motion } from "framer-motion";
-import { TrendingUp, CheckCircle, Headphones, Globe2 } from "lucide-react";
+import { Zap, BadgeCheck, Headphones, Globe2, Lock, LineChart } from "lucide-react";
+import { SectionHeading } from "@/components/ModulesSection";
 
 const features = [
-  {
-    icon: TrendingUp,
-    title: "Sürətli İcarə",
-    desc: "Bir neçə kliklə resurslarınızı icarəyə verin və ya götürün.",
-  },
-  {
-    icon: CheckCircle,
-    title: "Təsdiqlənmiş Tərəfdaşlar",
-    desc: "Bütün şirkətlər yoxlanılıb və etibarlıdır.",
-  },
-  {
-    icon: Headphones,
-    title: "24/7 Dəstək",
-    desc: "İstənilən vaxt komandamızla əlaqə saxlayın.",
-  },
-  {
-    icon: Globe2,
-    title: "Qlobal Şəbəkə",
-    desc: "50+ ölkədə aktiv logistika tərəfdaşları.",
-  },
+  { icon: Zap, title: "Sürətli icarə", desc: "Bir neçə kliklə resurslarınızı icarəyə verin və ya götürün." },
+  { icon: BadgeCheck, title: "Təsdiqlənmiş tərəfdaşlar", desc: "Platformadakı şirkətlər sənədlərə əsasən yoxlanılır." },
+  { icon: Lock, title: "Təhlükəsiz əməliyyatlar", desc: "Məlumatlarınız qorunur, əlaqələr platforma daxilində aparılır." },
+  { icon: LineChart, title: "Şəffaf qiymətlər", desc: "Təklifləri müqayisə edin, gizli ödənişlər olmadan seçin." },
+  { icon: Headphones, title: "24/7 dəstək", desc: "Komandamız istənilən vaxt suallarınızı cavablandırır." },
+  { icon: Globe2, title: "Qlobal şəbəkə", desc: "50+ ölkədə aktiv logistika tərəfdaşları." },
 ];
 
 const FeaturesSection = () => (
-  <section className="py-20 bg-muted/30">
+  <section id="about" className="scroll-mt-16 bg-white py-24">
     <div className="container">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-14"
-      >
-        <span className="inline-block bg-orange/10 text-orange rounded-full px-4 py-1 text-sm font-medium mb-4">
-          Niyə LogiTech?
-        </span>
-        <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-          Platformanın Üstünlükləri
-        </h2>
-      </motion.div>
+      <SectionHeading
+        eyebrow="Üstünlüklər"
+        title="Logistika şirkətləri üçün qurulub"
+        description="Daşıyıcılar, ekspeditorlar və anbar sahibləri üçün etibarlı, sadə və şəffaf platforma."
+      />
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((f, i) => (
           <motion.div
             key={f.title}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            whileHover={{ y: -6 }}
-            className="bg-card rounded-xl p-6 border text-center group hover:shadow-lg transition-all duration-300"
+            transition={{ delay: i * 0.05, duration: 0.4 }}
+            className="flex gap-4"
           >
-            <motion.div
-              className="inline-flex p-3 rounded-full bg-orange/10 text-orange mb-4"
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.5 }}
-            >
-              <f.icon className="h-6 w-6" />
-            </motion.div>
-            <h3 className="font-display font-semibold text-card-foreground mb-2">{f.title}</h3>
-            <p className="text-sm text-muted-foreground">{f.desc}</p>
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange/10 text-orange">
+              <f.icon className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="mb-1.5 font-display font-semibold text-navy">{f.title}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
+            </div>
           </motion.div>
         ))}
       </div>

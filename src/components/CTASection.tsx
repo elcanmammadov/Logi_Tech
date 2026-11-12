@@ -4,38 +4,50 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const CTASection = () => (
-  <section className="py-20 bg-gradient-to-br from-navy via-navy to-primary/80 relative overflow-hidden">
-    <motion.div
-      className="absolute inset-0 opacity-10"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 0.1 }}
-      viewport={{ once: true }}
-    >
+  <section className="bg-white py-24">
+    <div className="container">
       <motion.div
-        animate={{ x: [0, 100, 0], y: [0, -50, 0] }}
-        transition={{ duration: 15, repeat: Infinity }}
-        className="absolute top-0 left-1/4 w-96 h-96 bg-orange rounded-full blur-[200px]"
-      />
-    </motion.div>
-
-    <div className="container relative z-10 text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
+        className="relative overflow-hidden rounded-3xl bg-primary px-6 py-14 text-center sm:px-12 md:py-20"
       >
-        <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-navy-foreground mb-4">
-          Logistika resurslarınızı paylaşmağa hazırsınız?
-        </h2>
-        <p className="text-navy-foreground/60 max-w-xl mx-auto mb-8 text-sm sm:text-base">
-          İndi qeydiyyatdan keçin və minlərlə logistika şirkəti ilə əməkdaşlığa başlayın.
-        </p>
-        <Link to="/auth">
-          <Button size="lg" className="bg-orange hover:bg-orange/90 text-orange-foreground gap-2 group">
-            Pulsuz Qeydiyyat <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
-        </Link>
+        <div
+          className="pointer-events-none absolute inset-0 opacity-20"
+          style={{
+            backgroundImage:
+              "linear-gradient(hsl(0 0% 100% / .25) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / .25) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+            maskImage: "radial-gradient(ellipse at center, black, transparent 75%)",
+            WebkitMaskImage: "radial-gradient(ellipse at center, black, transparent 75%)",
+          }}
+        />
+        <div className="relative">
+          <h2 className="mx-auto max-w-2xl font-display text-3xl font-bold tracking-tight text-white md:text-4xl">
+            Resurslarınızı işlətməyə bu gün başlayın
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-base text-white/80">
+            Pulsuz qeydiyyatdan keçin və minlərlə logistika şirkəti ilə əməkdaşlıq edin.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link to="/auth">
+              <Button size="lg" className="group h-12 gap-2 bg-white px-6 text-navy hover:bg-white/90">
+                Pulsuz qeydiyyat
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Button>
+            </Link>
+            <a href="mailto:info@logitech.az">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-12 border-white/40 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white"
+              >
+                Bizimlə əlaqə
+              </Button>
+            </a>
+          </div>
+        </div>
       </motion.div>
     </div>
   </section>

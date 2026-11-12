@@ -1,243 +1,199 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Truck, Ship, Plane, Warehouse, Users, ParkingCircle, Globe, Shield, Clock, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  Truck,
+  Ship,
+  Plane,
+  Warehouse,
+  MapPin,
+  Search,
+  ShieldCheck,
+  Star,
+  Globe2,
+  Headphones,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import logo from "@/assets/logicoo-logo.jpeg";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (i = 0) => ({
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-  },
+    y: 0,
+    transition: { duration: 0.5, delay: i * 0.08, ease: "easeOut" },
+  }),
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
-const floatingIcons = [
-  { icon: Ship, label: "Gəmi", cls: "-top-6 -right-6 bg-primary", delay: 0.5 },
-  { icon: Plane, label: "Təyyarə", cls: "-bottom-6 -right-10 bg-green", delay: 0.7 },
-  { icon: ParkingCircle, label: "Parking", cls: "-bottom-6 -left-10 bg-orange", delay: 0.9 },
-  { icon: Users, label: "İşçi", cls: "-top-6 -left-6 bg-navy border border-navy-foreground/20", delay: 1.1 },
+const tabs = [
+  { icon: Truck, label: "TIR" },
+  { icon: Ship, label: "Gəmi" },
+  { icon: Plane, label: "Təyyarə" },
+  { icon: Warehouse, label: "Anbar" },
 ];
 
-const quickLinks = [
-  { icon: Truck, label: "TIR", path: "/modules/trucks", color: "bg-primary" },
-  { icon: Ship, label: "Gəmi", path: "/modules/ships", color: "bg-navy border border-navy-foreground/20" },
-  { icon: Plane, label: "Təyyarə", path: "/modules/aircraft", color: "bg-orange" },
-  { icon: Warehouse, label: "Anbar", path: "/modules/warehouses", color: "bg-green" },
-  { icon: Users, label: "İşçi", path: "/modules/workforce", color: "bg-secondary" },
-  { icon: ParkingCircle, label: "Parking", path: "/parking", color: "bg-accent" },
+const sampleResults = [
+  { route: "Bakı → İstanbul", meta: "Tentli · 20 t · 3 gün", price: "2 400 ₼", rating: "4.9" },
+  { route: "Bakı → Tbilisi", meta: "Refrijerator · 18 t · 1 gün", price: "950 ₼", rating: "4.8" },
+  { route: "Sumqayıt → Aktau", meta: "Konteyner · 22 t · 2 gün", price: "1 750 ₼", rating: "4.7" },
 ];
 
-const HeroSection = () => {
-  return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-navy">
-      {/* Animated decorative bg */}
-      <div className="absolute inset-0 opacity-10">
+const trust = [
+  { icon: ShieldCheck, text: "Yoxlanılmış şirkətlər" },
+  { icon: Headphones, text: "24/7 dəstək" },
+  { icon: Globe2, text: "50+ ölkə" },
+];
+
+const HeroSection = () => (
+  <section className="relative overflow-hidden bg-gradient-to-b from-white to-muted/60 pt-16">
+    {/* Subtle dot grid */}
+    <div
+      className="pointer-events-none absolute inset-0 opacity-[0.35] [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]"
+      style={{
+        backgroundImage: "radial-gradient(hsl(var(--border)) 1px, transparent 1px)",
+        backgroundSize: "22px 22px",
+      }}
+    />
+
+    <div className="container relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+      {/* Copy */}
+      <motion.div initial="hidden" animate="visible">
         <motion.div
-          animate={{ scale: [1, 1.2, 1], x: [0, 30, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 left-10 w-72 h-72 bg-orange rounded-full blur-[120px]"
-        />
-        <motion.div
-          animate={{ scale: [1, 1.3, 1], y: [0, -40, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-20 right-10 w-96 h-96 bg-primary rounded-full blur-[150px]"
-        />
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], x: [0, -20, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 left-1/2 w-64 h-64 bg-green rounded-full blur-[100px]"
-        />
-      </div>
+          variants={fadeUp}
+          custom={0}
+          className="mb-6 inline-flex items-center gap-2 rounded-full border bg-white px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-green" />
+          Azərbaycanın logistika resurs platforması
+        </motion.div>
 
-      {/* Animated grid pattern */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: "linear-gradient(hsl(var(--navy-foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--navy-foreground)) 1px, transparent 1px)",
-        backgroundSize: "60px 60px",
-      }} />
+        <motion.h1
+          variants={fadeUp}
+          custom={1}
+          className="font-display text-4xl font-bold leading-[1.1] tracking-tight text-navy sm:text-5xl lg:text-[3.5rem]"
+        >
+          Logistika resurslarını{" "}
+          <span className="text-primary">bir platformada</span> icarəyə verin və götürün
+        </motion.h1>
 
-      <div className="container relative z-10 pt-24 pb-16">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 bg-primary/20 text-primary-foreground/80 rounded-full px-3 py-1 text-xs sm:text-sm mb-4 sm:mb-6 border border-primary/30">
-              <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }}>
-                <Globe className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              </motion.div>
-              Logistika üçün yeni platform
-            </motion.div>
+        <motion.p
+          variants={fadeUp}
+          custom={2}
+          className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+        >
+          TIR, gəmi və təyyarə yük yerləri, anbar sahələri və peşəkar işçi qüvvəsi —
+          etibarlı tərəfdaşlarla birbaşa əlaqə, şəffaf qiymətlər.
+        </motion.p>
 
-            {/* Responsive title — smaller on mobile */}
-            <motion.h1 variants={itemVariants} className="font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-navy-foreground leading-tight mb-4 sm:mb-6">
-              Logistika resurslarını{" "}
-              <motion.span
-                className="text-orange inline-block"
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                icarəyə
-              </motion.span>{" "}
-              ver və ya{" "}
-              <motion.span
-                className="text-green inline-block"
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-              >
-                götür
-              </motion.span>
-            </motion.h1>
+        <motion.div variants={fadeUp} custom={3} className="mt-8 flex flex-wrap gap-3">
+          <Link to="/auth">
+            <Button size="lg" className="group h-12 gap-2 bg-orange px-6 text-orange-foreground hover:bg-orange/90">
+              Pulsuz başla
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Button>
+          </Link>
+          <a href="#modules">
+            <Button size="lg" variant="outline" className="h-12 bg-white px-6 text-navy">
+              Modullara bax
+            </Button>
+          </a>
+        </motion.div>
 
-            <motion.p variants={itemVariants} className="text-sm sm:text-base md:text-lg text-navy-foreground/70 mb-6 sm:mb-8 max-w-lg">
-              TIR, gəmi, təyyarə, anbar və işçi qüvvəsi — bütün logistika
-              resurslarını bir platformada idarə et.
-            </motion.p>
+        <motion.ul
+          variants={fadeUp}
+          custom={4}
+          className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-muted-foreground"
+        >
+          {trust.map((t) => (
+            <li key={t.text} className="flex items-center gap-2">
+              <t.icon className="h-4 w-4 text-primary" />
+              {t.text}
+            </li>
+          ))}
+        </motion.ul>
+      </motion.div>
 
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-3 sm:gap-4">
-              <Link to="/auth">
-                <Button size="lg" className="bg-orange hover:bg-orange/90 text-orange-foreground gap-2 group">
-                  Başla <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-              <Button size="lg" variant="outline" className="border-navy-foreground/30 text-navy-foreground hover:bg-navy-foreground/10 bg-transparent">
-                Daha ətraflı
-              </Button>
-            </motion.div>
+      {/* Product preview */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
+        className="relative"
+      >
+        <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-tr from-primary/10 via-transparent to-orange/10 blur-2xl" />
+        <div className="overflow-hidden rounded-2xl border bg-white shadow-[0_20px_60px_-20px_hsl(var(--navy)/0.25)]">
+          {/* window bar */}
+          <div className="flex items-center gap-1.5 border-b bg-muted/40 px-4 py-3">
+            <span className="h-2.5 w-2.5 rounded-full bg-border" />
+            <span className="h-2.5 w-2.5 rounded-full bg-border" />
+            <span className="h-2.5 w-2.5 rounded-full bg-border" />
+          </div>
 
-            {/* Quick access shortcuts - mobile friendly */}
-            <motion.div variants={itemVariants} className="mt-8 sm:mt-10">
-              <p className="text-xs text-navy-foreground/40 mb-3 flex items-center gap-1.5">
-                <Zap className="h-3 w-3" /> Cəld keçid
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {quickLinks.map((link, i) => (
-                  <motion.div
-                    key={link.label}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8 + i * 0.08, type: "spring", stiffness: 200 }}
-                  >
-                    <Link
-                      to={link.path}
-                      className="inline-flex items-center gap-1.5 bg-navy-foreground/5 hover:bg-navy-foreground/15 border border-navy-foreground/10 rounded-full px-3 py-1.5 text-navy-foreground/70 hover:text-navy-foreground transition-all text-xs sm:text-sm group"
-                    >
-                      <link.icon className="h-3.5 w-3.5 text-orange group-hover:scale-110 transition-transform" />
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Stats row */}
-            <motion.div variants={itemVariants} className="flex items-center gap-4 sm:gap-8 mt-8">
-              {[
-                { icon: Truck, label: "500+ TIR", color: "text-orange" },
-                { icon: Ship, label: "120+ Gəmi", color: "text-primary" },
-                { icon: Warehouse, label: "300+ Anbar", color: "text-green" },
-              ].map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  className="flex items-center gap-1.5 text-navy-foreground/60"
-                  whileHover={{ scale: 1.1 }}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1 + i * 0.15 }}
+          <div className="p-5">
+            <div className="mb-4 flex gap-1 rounded-lg bg-muted p-1">
+              {tabs.map((t, i) => (
+                <div
+                  key={t.label}
+                  className={`flex flex-1 items-center justify-center gap-1.5 rounded-md py-1.5 text-xs font-medium ${
+                    i === 0 ? "bg-white text-navy shadow-sm" : "text-muted-foreground"
+                  }`}
                 >
-                  <stat.icon className={`h-4 w-4 sm:h-5 sm:w-5 ${stat.color}`} />
-                  <span className="text-xs sm:text-sm font-medium">{stat.label}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* Trust badges */}
-            <motion.div
-              variants={itemVariants}
-              className="hidden sm:flex items-center gap-6 mt-8 pt-8 border-t border-navy-foreground/10"
-            >
-              {[
-                { icon: Shield, text: "Təhlükəsiz ödəniş" },
-                { icon: Clock, text: "24/7 dəstək" },
-                { icon: Globe, text: "50+ ölkə" },
-              ].map((badge) => (
-                <div key={badge.text} className="flex items-center gap-1.5 text-navy-foreground/50 text-xs">
-                  <badge.icon className="h-3.5 w-3.5" />
-                  <span>{badge.text}</span>
+                  <t.icon className="h-3.5 w-3.5" />
+                  <span className="hidden sm:inline">{t.label}</span>
                 </div>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 100 }}
-            className="hidden lg:flex justify-center"
-          >
-            <div className="relative">
-              <motion.div
-                animate={{ y: [0, -15, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="w-80 h-80 rounded-3xl bg-gradient-to-br from-primary/20 to-orange/20 flex items-center justify-center backdrop-blur-sm"
-              >
-                <motion.img
-                  src={logo}
-                  alt="LogiTech"
-                  className="w-60 h-60 object-contain drop-shadow-2xl"
-                  animate={{ rotate: [0, 5, -5, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                />
-              </motion.div>
+            <div className="mb-5 grid grid-cols-[1fr_1fr_auto] gap-2">
+              {["Bakı", "İstanbul"].map((city, i) => (
+                <div key={city} className="flex items-center gap-2 rounded-lg border px-3 py-2.5 text-sm">
+                  <MapPin className={`h-4 w-4 ${i === 0 ? "text-primary" : "text-orange"}`} />
+                  <span className="truncate text-navy">{city}</span>
+                </div>
+              ))}
+              <div className="flex items-center justify-center rounded-lg bg-navy px-3 text-white">
+                <Search className="h-4 w-4" />
+              </div>
+            </div>
 
-              {/* Orbiting ring */}
-              <motion.div
-                className="absolute inset-[-20px] rounded-full border border-dashed border-orange/30"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
-
-              {/* Floating badges */}
-              {floatingIcons.map((badge) => (
-                <motion.div
-                  key={badge.label}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: badge.delay, type: "spring", stiffness: 200 }}
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  className={`absolute ${badge.cls} text-card rounded-xl p-3 shadow-lg cursor-pointer`}
-                >
-                  <badge.icon className="h-6 w-6" />
-                </motion.div>
+            <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              Uyğun təkliflər
+            </p>
+            <div className="divide-y rounded-lg border">
+              {sampleResults.map((r) => (
+                <div key={r.route} className="flex items-center justify-between gap-3 px-4 py-3">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+                      <Truck className="h-4 w-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold text-navy">{r.route}</p>
+                      <p className="truncate text-xs text-muted-foreground">{r.meta}</p>
+                    </div>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <p className="text-sm font-semibold text-navy">{r.price}</p>
+                    <p className="flex items-center justify-end gap-0.5 text-xs text-muted-foreground">
+                      <Star className="h-3 w-3 fill-orange text-orange" /> {r.rating}
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
-      </div>
 
-      {/* Animated bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 60" fill="none" className="w-full">
-          <motion.path
-            d="M0 60V30C240 10 480 0 720 10C960 20 1200 40 1440 30V60H0Z"
-            fill="hsl(var(--background))"
-            animate={{ d: [
-              "M0 60V30C240 10 480 0 720 10C960 20 1200 40 1440 30V60H0Z",
-              "M0 60V40C240 20 480 10 720 20C960 30 1200 50 1440 40V60H0Z",
-              "M0 60V30C240 10 480 0 720 10C960 20 1200 40 1440 30V60H0Z",
-            ]}}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </svg>
-      </div>
-    </section>
-  );
-};
+        <div className="absolute -right-4 -top-6 hidden items-center gap-3 rounded-xl border bg-white px-4 py-3 shadow-lg sm:flex">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green/10 text-green">
+            <ShieldCheck className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-navy">Sifariş təsdiqləndi</p>
+            <p className="text-xs text-muted-foreground">Bakı → İstanbul · TIR</p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  </section>
+);
 
 export default HeroSection;

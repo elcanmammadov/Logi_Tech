@@ -1,95 +1,81 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
-import logo from "@/assets/logicoo-logo.jpeg";
+import Logo from "@/components/Logo";
+
+const columns = [
+  {
+    title: "Modullar",
+    links: [
+      { label: "TIR icarəsi", to: "/modules/trucks" },
+      { label: "Gəmi yeri", to: "/modules/ships" },
+      { label: "Təyyarə yeri", to: "/modules/aircraft" },
+      { label: "Anbar icarəsi", to: "/modules/warehouses" },
+      { label: "İşçi qüvvəsi", to: "/modules/workforce" },
+      { label: "Parking xəritəsi", to: "/parking" },
+    ],
+  },
+  {
+    title: "Şirkət",
+    links: [
+      { label: "Haqqımızda", to: "/#about" },
+      { label: "Necə işləyir", to: "/#how" },
+      { label: "Qeydiyyat", to: "/auth" },
+    ],
+  },
+];
 
 const Footer = () => (
-  <footer className="bg-navy py-16 border-t border-navy-foreground/10">
-    <div className="container">
-      <div className="grid md:grid-cols-4 gap-10 mb-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <img src={logo} alt="LogiTech" className="h-10 w-10 object-contain" />
-            <span className="font-display font-bold text-xl text-navy-foreground">LogiTech</span>
-          </div>
-          <p className="text-sm text-navy-foreground/50 leading-relaxed">
-            Logistika sahəsində resurs paylaşımı üçün ən böyük platforma.
+  <footer className="border-t bg-white">
+    <div className="container py-16">
+      <div className="grid gap-12 md:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
+        <div>
+          <Logo />
+          <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            Logistika resurslarının paylaşılması və icarəsi üçün vahid platforma.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
-          <h4 className="font-display font-semibold text-navy-foreground mb-4">Modullar</h4>
-          <div className="space-y-2">
-            {[
-              { label: "TIR İcarəsi", path: "/modules/trucks" },
-              { label: "Gəmi Yeri", path: "/modules/ships" },
-              { label: "Təyyarə Yeri", path: "/modules/aircraft" },
-              { label: "Anbar İcarəsi", path: "/modules/warehouses" },
-              { label: "İşçi Qüvvəsi", path: "/modules/workforce" },
-            ].map((item) => (
-              <Link key={item.path} to={item.path} className="block text-sm text-navy-foreground/50 hover:text-orange transition-colors">
-                {item.label}
-              </Link>
-            ))}
+        {columns.map((col) => (
+          <div key={col.title}>
+            <h4 className="mb-4 text-sm font-semibold text-navy">{col.title}</h4>
+            <ul className="space-y-2.5">
+              {col.links.map((l) => (
+                <li key={l.label}>
+                  <Link to={l.to} className="text-sm text-muted-foreground transition-colors hover:text-navy">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
-        </motion.div>
+        ))}
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-        >
-          <h4 className="font-display font-semibold text-navy-foreground mb-4">Şirkət</h4>
-          <div className="space-y-2">
-            {["Haqqımızda", "Karyera", "Blog", "Partnyorlar", "Şərtlər"].map((item) => (
-              <span key={item} className="block text-sm text-navy-foreground/50 hover:text-orange transition-colors cursor-pointer">
-                {item}
-              </span>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
-          <h4 className="font-display font-semibold text-navy-foreground mb-4">Əlaqə</h4>
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-sm text-navy-foreground/50">
-              <Mail className="h-4 w-4" /> info@logitech.az
-            </div>
-            <div className="flex items-center gap-2 text-sm text-navy-foreground/50">
-              <Phone className="h-4 w-4" /> +994 12 555 00 00
-            </div>
-            <div className="flex items-center gap-2 text-sm text-navy-foreground/50">
+        <div>
+          <h4 className="mb-4 text-sm font-semibold text-navy">Əlaqə</h4>
+          <ul className="space-y-3 text-sm text-muted-foreground">
+            <li>
+              <a href="mailto:info@logitech.az" className="flex items-center gap-2 hover:text-navy">
+                <Mail className="h-4 w-4" /> info@logitech.az
+              </a>
+            </li>
+            <li>
+              <a href="tel:+994125550000" className="flex items-center gap-2 hover:text-navy">
+                <Phone className="h-4 w-4" /> +994 12 555 00 00
+              </a>
+            </li>
+            <li className="flex items-center gap-2">
               <MapPin className="h-4 w-4" /> Bakı, Azərbaycan
-            </div>
-          </div>
-        </motion.div>
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="pt-8 border-t border-navy-foreground/10 text-center"
-      >
-        <p className="text-sm text-navy-foreground/40">
-          © 2026 LogiTech. Bütün hüquqlar qorunur.
-        </p>
-      </motion.div>
+    <div className="border-t">
+      <div className="container flex flex-col items-center justify-between gap-2 py-6 text-xs text-muted-foreground sm:flex-row">
+        <p>© {new Date().getFullYear()} LogiTech. Bütün hüquqlar qorunur.</p>
+        <p>Bakıda hazırlanıb</p>
+      </div>
     </div>
   </footer>
 );
